@@ -1,0 +1,11 @@
+/out/
+*.class
+
+lib/
+/natives/
+
+/.idea/
+/.vscode/
+
+.DS_Store
+Thumbs.db
