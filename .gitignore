@@ -1,11 +1,9 @@
-/out/
-*.class
+.gradle/
+build/
 
-lib/
-/natives/
-
-/.idea/
-/.vscode/
+.idea/
+.vscode/
+*.iml
 
 .DS_Store
 Thumbs.db
