@@ -1,5 +1,6 @@
 package cavegame;
 
+import cavegame.events.InputHandler;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
@@ -82,14 +83,7 @@ public class Main {
             throw new RuntimeException("Failed to create the GLFW window");
 
         // Create key callack
-        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            // If player click a choosen key, the window close
-            if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
-                glfwSetWindowShouldClose(window, true);
-            }
-        });
-
-
+        glfwSetKeyCallback(window, InputHandler::keyCallback /* Input handler class, located in the events package */);
 
         try (MemoryStack stack = stackPush()) {
 
@@ -107,7 +101,7 @@ public class Main {
             glfwSetWindowPos(
                     window,
                     (vidmode.width() - pWidth.get(0)) / 2,
-                    (vidmode.width() - pHeight.get(0)) / 2
+                    (vidmode.height() - pHeight.get(0)) / 2
             );
         }
 
@@ -136,6 +130,10 @@ public class Main {
 
             // Swap
             glfwSwapBuffers(window);
+
+            if (InputHandler.isKeyDown(GLFW_KEY_ESCAPE)) {
+                glfwSetWindowShouldClose(window, true);
+            }
 
             // Allow to use event, key callback etc..
             glfwPollEvents();
