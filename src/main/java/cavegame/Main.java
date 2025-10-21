@@ -1,5 +1,6 @@
 package cavegame;
 
+import cavegame.entity.Player;
 import cavegame.events.InputHandler;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
@@ -28,6 +29,8 @@ public class Main {
         public int height;
     }
 
+    // Instantiate our first entity
+    Player player = new Player();
 
     public void run() {
 
