@@ -2,6 +2,7 @@ package cavegame;
 
 import cavegame.entity.Player;
 import cavegame.events.InputHandler;
+import cavegame.world.World;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
@@ -145,6 +146,9 @@ public class Main {
 
     // Equivalant to the main class in C or C++
     public static void main(String[] args) {
+
+        // Create a world
+        World world = new World(new World.WorldCoordinates(4, 4, 4));
 
         // Make the run function be the main function
         new Main().run();
