@@ -1,9 +1,9 @@
 package cavegame;
 
+import cavegame.blocks.DrawCube;
 import cavegame.entity.Player;
 import cavegame.events.InputHandler;
 import cavegame.world.World;
-import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
@@ -32,6 +32,9 @@ public class Main {
 
     // Instantiate our first entity
     Player player = new Player();
+
+    // Instantiate our first block
+    DrawCube drawCube = new DrawCube();
 
     public void run() {
 
@@ -72,6 +75,7 @@ public class Main {
         // Works like statistics
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // Make the next window visible
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // Make it also resizable
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE); // allows glBegin/glEnd
 
         // Create the windows
         window = glfwCreateWindow(size.width /* Give the width we init earlier */, size.height /* Give the height we init earlier */, title /* Give the title*/,
@@ -111,37 +115,54 @@ public class Main {
 
         glfwMakeContextCurrent(window);
 
+        /* This line is important to allow you to "draw" on the window
+         * Without it you probably can't do much */
+        GL.createCapabilities();
+
+        System.out.println("OpenGL version: " + glGetString(GL_VERSION));
+
+
         // Enable V-sync
         glfwSwapInterval(1);
 
         // Make the window visible
         glfwShowWindow(window);
 
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, size.width, size.height, 0, 1, -1);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+
     }
 
     private void loop() {
-        /* This line is important to allow you to "draw" on the window
-        * Without it you probably can't do much */
-        GL.createCapabilities();
 
         // Set the background color
-        glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+        glClearColor(0f, 0f, 0f, 1f); // black background
 
 
         while (!glfwWindowShouldClose(window)) {
             // Clear the windows every frame
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // Swap
-            glfwSwapBuffers(window);
 
             if (InputHandler.isKeyDown(GLFW_KEY_ESCAPE)) {
                 glfwSetWindowShouldClose(window, true);
             }
 
-            // Allow to use event, key callback etc..
+            // Draw a cube
+            drawCube.DrawCube(0, 0, 0, 0);
+
+            // Swap
+            glfwSwapBuffers(window); // Set to blank
+
+            // Allow using event, key callback, etc.
             glfwPollEvents();
         }
+
+        glfwDestroyWindow(window);
+        glfwTerminate();
     }
 
     // Equivalant to the main class in C or C++
