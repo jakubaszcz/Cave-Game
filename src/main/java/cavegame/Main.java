@@ -36,6 +36,7 @@ public class Main {
     // Instantiate our first block
     DrawCube drawCube = new DrawCube();
 
+
     public void run() {
 
         // Initialize GLFW
@@ -130,7 +131,7 @@ public class Main {
 
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, size.width, size.height, 0, 1, -1);
+        glOrtho(0, size.width, size.height, 1, 1, 100);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
@@ -151,8 +152,9 @@ public class Main {
                 glfwSetWindowShouldClose(window, true);
             }
 
+
             // Draw a cube
-            drawCube.DrawCube(0, 0, 0, 0);
+            drawCube.DrawCube(400, 300, 0, 100f);
 
             // Swap
             glfwSwapBuffers(window); // Set to blank

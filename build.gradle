@@ -16,6 +16,8 @@ dependencies {
     implementation "org.lwjgl:lwjgl-opengl:$lwjglVersion"
     implementation "org.lwjgl:lwjgl-openal:$lwjglVersion"
     implementation "org.lwjgl:lwjgl-stb:$lwjglVersion"
+    implementation 'org.jogamp.jogl:jogl-all-main:2.3.2'
+    implementation 'org.jogamp.gluegen:gluegen-rt-main:2.3.2'
 
     runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
